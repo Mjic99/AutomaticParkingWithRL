@@ -193,7 +193,15 @@ public class CarControllerPerpendicular : Agent
         // initial distance perpendicular: 3.995925, parallel: 3.633735
         // 3.995925 / 2 = 1.9979625
         // 3.633735 / 2 = 1.8168675
-        float distanceReward = (float)(Math.Tanh((initialDistance / 2) - distance) / 2) + 0.5f;
+        float distanceReward;
+        if (randomPositions)
+        {
+            distanceReward = (float)(Math.Tanh((3.995925 / 2) - distance) / 2) + 0.5f;
+        }
+        else
+        {
+            distanceReward = (float)(Math.Tanh((initialDistance / 2) - distance) / 2) + 0.5f;
+        }
 
         // Calculate reward linearly
         // max distance: 5.3
@@ -258,6 +266,9 @@ public class CarControllerPerpendicular : Agent
         {
             sensor.AddObservation(distance);
         }
+
+        // Add euclidean distance to target spot
+        sensor.AddObservation(Vector3.Distance(transform.localPosition, targetSpot.localPosition));
     }
 
     private float[] GetSensorDistances()
