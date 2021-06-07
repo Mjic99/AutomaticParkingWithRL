@@ -36,10 +36,13 @@ public class EnsembleManager : MonoBehaviour
 
     public float ensembleSize = 2;
 
-    List<float[]> actionStack = new List<float[]>();
+    Dictionary<int, float[]> actionStack = new Dictionary<int, float[]>();
 
     List<EnsembleItem> ensembleItems = new List<EnsembleItem>();
 
+    public float differenceLimit = 1f;
+
+    public float preference = 1f;
 
     private int totalStepCount = 0;
     private int episodeStepCount = 0;
@@ -150,28 +153,40 @@ public class EnsembleManager : MonoBehaviour
         respawn = true;
     }
 
+    private float getAction(int actionIndex)
+    {
+        // Make actions in range [0 ; 2]
+        float priorityModel = actionStack[1][actionIndex] + 1;
+        float nonPriorityModel = actionStack[0][actionIndex] + 1;
+
+        float shiftedDiff = Mathf.Abs(priorityModel - nonPriorityModel);
+
+        //float shiftedMean = ((actionStack[0][actionIndex] + actionStack[1][actionIndex]) / 2) + 1;
+
+        //Debug.Log($"MEAN: {shiftedMean}, DIFF: {shiftedDiff}");
+        if (shiftedDiff > differenceLimit)
+        {
+            return actionStack[0][actionIndex] * (1 - preference) + actionStack[1][actionIndex] * preference;
+        }
+        else
+        {
+            return actionStack[0][actionIndex] * 0.5f + actionStack[1][actionIndex] * 0.5f;
+        }
+    }
+
     /*
         vectorAction[]
         Index 0: acceleration (-1 = accel backwards, +1 = accel forward)
         Index 1: turn (-1 = left, +1 = right)
     */
-    public void PushAction(float[] vectorAction)
+    public void PushAction(float[] vectorAction, int position)
     {
-        actionStack.Add(vectorAction);
+        actionStack[position] = vectorAction;
 
-        if (actionStack.Count == ensembleSize)
+        if (actionStack.ContainsKey(0) && actionStack.ContainsKey(1))
         {
-            float movement = 0f;
-            float turn = 0f;
-
-            foreach (float[] action in actionStack)
-            {
-                movement += action[0];
-                turn += action[1];
-            }
-
-            movement /= ensembleSize;
-            turn /= ensembleSize;
+            float movement = getAction(0);
+            float turn = getAction(1);
 
             actionStack.Clear();
 

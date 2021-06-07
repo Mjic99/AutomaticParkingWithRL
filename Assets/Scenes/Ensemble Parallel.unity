@@ -396,6 +396,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 50
   manager: {fileID: 122554272}
+  position: 1
 --- !u!114 &118955264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +415,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: f1cf68366a5318742aedec5817b63e54, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ab66067683f4255459d96eb067cb3046, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car
@@ -484,6 +485,8 @@ MonoBehaviour:
   sensorLength: 20
   startArea: {fileID: 0}
   ensembleSize: 2
+  differenceLimit: 1
+  preference: 0.5
 --- !u!54 &122554273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2349,6 +2352,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   manager: {fileID: 122554272}
+  position: 0
 --- !u!114 &1140906605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2367,7 +2371,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: 612f19a6601c04542aa7cff247afbdc7, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ccbd499b7968b564193d9905812e0fa1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car

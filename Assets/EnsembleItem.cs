@@ -6,6 +6,8 @@ public class EnsembleItem : Agent
 {
     public EnsembleManager manager;
 
+    public int position;
+
     void Start()
     {
     }
@@ -26,7 +28,7 @@ public class EnsembleItem : Agent
     */
     public override void OnActionReceived(float[] vectorAction)
     {
-        manager.PushAction(vectorAction);
+        manager.PushAction(vectorAction, position);
     }
 
     public override void CollectObservations(VectorSensor sensor)

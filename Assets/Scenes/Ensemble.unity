@@ -2249,7 +2249,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: d12b181a3012b0142acec2e468706c6c, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ccbd499b7968b564193d9905812e0fa1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car
@@ -2272,6 +2272,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   manager: {fileID: 122554272}
+  position: 0
 --- !u!1 &679815790
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,7 +3627,7 @@ MonoBehaviour:
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: adb19c34716e2cd4d9106e23c5db4dc4, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ab66067683f4255459d96eb067cb3046, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car
@@ -3649,6 +3650,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   manager: {fileID: 122554272}
+  position: 1
 --- !u!1 &1494320296
 GameObject:
   m_ObjectHideFlags: 0
