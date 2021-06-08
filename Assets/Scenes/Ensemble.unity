@@ -461,8 +461,12 @@ MonoBehaviour:
     collider: {fileID: 1079002168}
     axle: 1
   sensorLength: 20
-  startArea: {fileID: 0}
-  ensembleSize: 2
+  startArea: {fileID: 1045785421}
+  targetSpot: {fileID: 370790149}
+  differenceLimit: 1
+  preference: 0.5
+  randomPositions: 1
+  observeDistance: 1
 --- !u!54 &122554273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2244,12 +2248,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
+    VectorObservationSize: 13
     NumStackedVectorObservations: 1
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: ccbd499b7968b564193d9905812e0fa1, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 0b72af81dd7eb1549b58c2ddd3cc5b4d, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car
@@ -3110,6 +3114,60 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!1 &1045785421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1045785422}
+  - component: {fileID: 1045785424}
+  - component: {fileID: 1045785423}
+  m_Layer: 0
+  m_Name: StartArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1045785422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045785421}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 1.3}
+  m_LocalScale: {x: 2, y: 1.5, z: 7.5}
+  m_Children: []
+  m_Father: {fileID: 2068224770}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!64 &1045785423
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045785421}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &1045785424
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045785421}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1079002166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3622,12 +3680,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
+    VectorObservationSize: 13
     NumStackedVectorObservations: 1
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: ab66067683f4255459d96eb067cb3046, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ac2800eecff017548889241fb134cfdd, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Car
@@ -5209,6 +5267,7 @@ Transform:
   - {fileID: 78385670}
   - {fileID: 370790149}
   - {fileID: 122554274}
+  - {fileID: 1045785422}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

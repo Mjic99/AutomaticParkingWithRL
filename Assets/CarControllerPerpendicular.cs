@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using System.Linq;
 
 public class CarControllerPerpendicular : Agent
 {
@@ -43,6 +44,15 @@ public class CarControllerPerpendicular : Agent
     public bool randomPositions;
 
     float initialDistance;
+
+    public bool observeDistance = false;
+
+    public bool isParallel = false;
+
+    private int totalStepCount = 0;
+    private int episodeCount = 0;
+    private int successfulEpisodeCount = 0;
+    private List<float> angles = new List<float>();
 
     void Start()
     {
@@ -101,6 +111,29 @@ public class CarControllerPerpendicular : Agent
         OnTriggerEnterOrStay(other);
     }
 
+    void AddTerminalReward()
+    {
+        if (isParallel)
+        {
+            float deviation = randomPositions
+                ? Vector3.Angle(transform.forward, Vector3.Project(transform.forward, targetSpot.forward)) // facing forwards and backwards is ok
+                : Vector3.Angle(transform.forward, targetSpot.forward); // else only face forward
+
+            if (deviation == 0)
+            {
+                AddReward(10000f); //is bigger if orientation is correct
+            }
+            else
+            {
+                AddReward(10000f / deviation);
+            }
+        }
+        else
+        {
+            AddReward(10000f);
+        }
+    }
+
     void OnTriggerEnterOrStay(Collider collider)
     {
         if (collider.CompareTag("spot"))
@@ -115,9 +148,22 @@ public class CarControllerPerpendicular : Agent
                 }
                 positions.Clear();
 
-                AddReward(10000f);
-                Debug.Log(GetCumulativeReward());
-                statsRecorder.Add("Environment/Angle", Vector3.Angle(transform.forward, targetSpot.forward));
+                AddTerminalReward();
+
+                //Debug.Log(GetCumulativeReward());
+                statsRecorder.Add(
+                    "Environment/Angle",
+                    randomPositions && isParallel
+                    ? Vector3.Angle(transform.forward, Vector3.Project(transform.forward, targetSpot.forward)) // facing forwards and backwards is ok
+                    : Vector3.Angle(transform.forward, targetSpot.forward) // else only face forward);
+                );
+
+                // custom stats
+                successfulEpisodeCount += 1;
+                angles.Add(randomPositions && isParallel
+                    ? Vector3.Angle(transform.forward, Vector3.Project(transform.forward, targetSpot.forward)) // facing forwards and backwards is ok
+                    : Vector3.Angle(transform.forward, targetSpot.forward) // else only face forward);
+                );
                 EndEpisode();
                 parked = true;
             }
@@ -127,7 +173,7 @@ public class CarControllerPerpendicular : Agent
     void OnCollisionEnter(Collision collision)
     {
         AddReward(-1f);
-        Debug.Log(GetCumulativeReward());
+        //Debug.Log(GetCumulativeReward());
         EndEpisode();
     }
 
@@ -149,6 +195,10 @@ public class CarControllerPerpendicular : Agent
 
     public override void OnEpisodeBegin()
     {
+        // statistics
+        episodeCount += 1;
+        Debug.Log($"Timestep: {totalStepCount}, Episodes: {episodeCount}, SuccessfulEpisodes: {successfulEpisodeCount}, Angle: {(angles.Count > 0 ? angles.Average() : 0)}");
+
         if (randomPositions)
         {
             transform.localPosition = RandomPosition();
@@ -212,7 +262,15 @@ public class CarControllerPerpendicular : Agent
         // Angle reward in range: -1:0
         if (distance < 2)
         {
-            float deviation = Vector3.Angle(transform.forward, targetSpot.forward);
+            float deviation;
+            if (isParallel && randomPositions)
+            {
+                deviation = Vector3.Angle(transform.forward, Vector3.Project(transform.forward, targetSpot.forward)); // facing forwards and backwards is ok
+            }
+            else
+            {
+                deviation = Vector3.Angle(transform.forward, targetSpot.forward);
+            }
             // Calculate angle reward linearly
             //float angleReward = - deviation / 180;
 
@@ -234,6 +292,9 @@ public class CarControllerPerpendicular : Agent
         // Perform actions
         Move(vectorAction[0]);
         Turn(vectorAction[1]);
+
+        // statistics
+        totalStepCount += 1;
     }
 
     private void LockUpVehicle()
@@ -267,8 +328,11 @@ public class CarControllerPerpendicular : Agent
             sensor.AddObservation(distance);
         }
 
-        // Add euclidean distance to target spot
-        sensor.AddObservation(Vector3.Distance(transform.localPosition, targetSpot.localPosition));
+        if (observeDistance)
+        {
+            // Add euclidean distance to target spot
+            sensor.AddObservation(Vector3.Distance(transform.localPosition, targetSpot.localPosition));
+        }
     }
 
     private float[] GetSensorDistances()

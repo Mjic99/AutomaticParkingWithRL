@@ -32,9 +32,7 @@ public class EnsembleManager : MonoBehaviour
 
     public GameObject startArea;
 
-    private Transform targetSpot;
-
-    public float ensembleSize = 2;
+    public Transform targetSpot;
 
     Dictionary<int, float[]> actionStack = new Dictionary<int, float[]>();
 
@@ -49,6 +47,10 @@ public class EnsembleManager : MonoBehaviour
     private int episodeCount = 0;
     private int successfulEpisodeCount = 0;
     private List<float> angles = new List<float>();
+
+    public bool randomPositions;
+
+    public bool observeDistance;
 
     void Start()
     {
@@ -139,6 +141,15 @@ public class EnsembleManager : MonoBehaviour
         ensembleItems.Add(item);
     }
 
+    public Vector3 RandomPosition()
+    {
+        Bounds bounds = startArea.GetComponent<Collider>().bounds;
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            1,
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
+    }
 
     public void BeginEpisode()
     {
@@ -146,8 +157,17 @@ public class EnsembleManager : MonoBehaviour
         Debug.Log($"Timestep: {totalStepCount}, Episodes: {episodeCount}, SuccessfulEpisodes: {successfulEpisodeCount}, Angle: {(angles.Count > 0 ? angles.Average() : 0)}");
         episodeStepCount = 0;
 
-        transform.localPosition = new Vector3(3, 1, 1);
-        transform.localRotation = Quaternion.Euler(0, -90, 0);
+        if (randomPositions)
+        {
+            transform.localPosition = RandomPosition();
+            transform.localRotation = Quaternion.LookRotation(targetSpot.position - transform.position);
+        }
+        else
+        {
+            transform.localPosition = new Vector3(3, 1, 1);
+            transform.localRotation = Quaternion.Euler(0, -90, 0);
+        }
+
         rb.velocity = new Vector3(0f, 0f, 0f);
         rb.angularVelocity = new Vector3(0f, 0f, 0f);
         respawn = true;

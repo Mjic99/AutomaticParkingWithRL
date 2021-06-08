@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CarClean.unity
     guid: 6252e1b579c0ec9448f321c04cf2cd6a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Car.unity
     guid: 1112db68db9f49f42877d37bf111a70d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Car Parallel.unity
     guid: fb78e0198e99f8c4e94bcf7d54aec8a0
   m_configObjects: {}

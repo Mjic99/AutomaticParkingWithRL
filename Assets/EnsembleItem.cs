@@ -40,6 +40,12 @@ public class EnsembleItem : Agent
         {
             sensor.AddObservation(distance);
         }
+
+        if (manager.observeDistance)
+        {
+            // Add euclidean distance to target spot
+            sensor.AddObservation(Vector3.Distance(manager.transform.localPosition, manager.targetSpot.localPosition));
+        }
     }
 
     public override void Heuristic(float[] actionsOut)

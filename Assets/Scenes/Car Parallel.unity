@@ -375,7 +375,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 122554271}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 658330e5ac3d48741b8ce3dc427db564, type: 3}
+  m_Script: {fileID: 11500000, guid: 58a726a529357594ca15209a6c360f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
@@ -401,7 +401,9 @@ MonoBehaviour:
     axle: 1
   sensorLength: 20
   startArea: {fileID: 2074571976}
-  randomPositions: 0
+  randomPositions: 1
+  observeDistance: 1
+  isParallel: 1
 --- !u!54 &122554273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -460,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
+    VectorObservationSize: 13
     NumStackedVectorObservations: 1
     VectorActionSize: 02000000
     VectorActionDescriptions: []
