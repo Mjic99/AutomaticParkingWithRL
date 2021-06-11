@@ -2258,7 +2258,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: Car
   TeamId: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!114 &642445767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3690,7 +3690,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: Car
   TeamId: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!114 &1491553085
 MonoBehaviour:
   m_ObjectHideFlags: 0

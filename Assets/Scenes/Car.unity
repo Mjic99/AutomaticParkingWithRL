@@ -539,7 +539,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: Car
   TeamId: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!1 &125578390
 GameObject:
   m_ObjectHideFlags: 0

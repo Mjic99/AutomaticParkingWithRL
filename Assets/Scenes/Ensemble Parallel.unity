@@ -420,7 +420,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: Car
   TeamId: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!114 &118955265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,9 +483,12 @@ MonoBehaviour:
     collider: {fileID: 1079002168}
     axle: 1
   sensorLength: 20
-  startArea: {fileID: 0}
+  startArea: {fileID: 2074571976}
+  targetSpot: {fileID: 370790149}
   differenceLimit: 0.25
   preference: 0.95
+  randomPositions: 0
+  observeDistance: 0
 --- !u!54 &122554273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2375,7 +2378,7 @@ MonoBehaviour:
   m_BehaviorType: 0
   m_BehaviorName: Car
   TeamId: 0
-  m_UseChildSensors: 1
+  m_UseChildSensors: 0
 --- !u!114 &1140906606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3340,11 +3343,11 @@ GameObject:
   - component: {fileID: 2074571978}
   m_Layer: 0
   m_Name: StartArea
-  m_TagString: spot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2074571977
 Transform:
   m_ObjectHideFlags: 0
